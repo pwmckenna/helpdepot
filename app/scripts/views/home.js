@@ -5,12 +5,11 @@ define([
 ], function (Backbone, Handlebars) {
     'use strict';
 
-    var View = Backbone.View.extend({
+    return Backbone.View.extend({
+        template: Handlebars.templates.home,
         render: function () {
-            this.$el.empty();
-            this.$el.html(Handlebars.templates.contractor_list_view(this.collection.toJSON()));
+            this.$el.html(this.template());
             return this;
         }
     });
-    return View;
 });

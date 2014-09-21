@@ -16,54 +16,102 @@ require.config({
         bootstrapTransition: '../bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/transition',
         handlebars: '../bower_components/handlebars/handlebars',
         templates: '/handlebars/templates',
-        underscore: '../bower_components/underscore/underscore'
+        underscore: '../bower_components/underscore/underscore',
+        firebase: '../bower_components/firebase/firebase',
+        backfire: '../bower_components/backfire/backbone-firebase.min'
     },
     shim: {
+        firebase: {
+            exports: 'Firebase'
+        },
+        backfire: {
+            deps: [
+                'backbone',
+                'firebase'
+            ],
+            exports: 'Backbone'
+        },
         templates: {
-            deps: ['handlebars'],
+            deps: [
+                'handlebars'
+            ]
         },
         handlebars: {
             exports: 'Handlebars'
         },
         backbone: {
-            deps: ['jquery', 'underscore'],
+            deps: [
+                'jquery',
+                'underscore'
+            ],
             exports: 'Backbone'
         },
         bootstrapAffix: {
-            deps: ['jquery']
+            deps: [
+                'jquery'
+            ]
         },
         bootstrapAlert: {
-            deps: ['jquery', 'bootstrapTransition']
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapButton: {
-            deps: ['jquery']
+            deps: [
+                'jquery'
+            ]
         },
         bootstrapCarousel: {
-            deps: ['jquery', 'bootstrapTransition']
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapCollapse: {
-            deps: ['jquery', 'bootstrapTransition']
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapDropdown: {
-            deps: ['jquery']
+            deps: [
+                'jquery'
+            ]
         },
-        bootstrapModal:{
-            deps: ['jquery', 'bootstrapTransition']
+        bootstrapModal: {
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapPopover: {
-            deps: ['jquery', 'bootstrapTooltip']
+            deps: [
+                'jquery',
+                'bootstrapTooltip'
+            ]
         },
         bootstrapScrollspy: {
-            deps: ['jquery']
+            deps: [
+                'jquery'
+            ]
         },
         bootstrapTab: {
-            deps: ['jquery', 'bootstrapTransition']
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapTooltip: {
-            deps: ['jquery', 'bootstrapTransition']
+            deps: [
+                'jquery',
+                'bootstrapTransition'
+            ]
         },
         bootstrapTransition: {
-            deps: ['jquery']
+            deps: [
+                'jquery'
+            ]
         },
         underscore: {
             exports: '_'

@@ -1,13 +1,28 @@
 define([
-    'backbone',
-    'collections/contractor.list',
-    'views/contractor.list.view'
-], function (Backbone, ContractorList, ContractorListView) {
+    'jquery',
+    'backfire',
+    'views/browseContractor',
+    'views/browseContractorList',
+    'views/home',
+    'views/login',
+    'views/contractor'
+], function (
+    $,
+    Backbone,
+    BrowseContractorView,
+    BrowseContractorListView,
+    HomeView,
+    LoginView,
+    ContractorView
+) {
     'use strict';
 
-    var Router = Backbone.Router.extend({
+    return Backbone.Router.extend({
         routes: {
-            'contractors': 'contractors',
+            '': 'home',
+            'browse/contractors': 'browseContractors',
+            'browse/contractor/:id': 'browseContractor',
+            'contractor': 'login',
             'contractor/:id': 'contractor',
             '*path': 'unknown'
         },
@@ -16,20 +31,44 @@ define([
                 cb.apply(this, args);
             }
         },
-        contractors: function () {
-            this.collection = new ContractorList();
-            this.view = new ContractorListView({
-                collection: this.collection
-            });
-            $('body').html(this.view.render().el);
-            console.log('router:contractors', arguments);
+        home: function () {
+            var view = new HomeView();
+            $('.content').html(view.render().el);
         },
-        contractor: function () {
-            console.log('router:contractor', arguments);
+        browseContractors: function () {
+            var Collection = Backbone.Firebase.Collection.extend({
+                firebase: 'https://helpdepot.firebaseio.com/contractors'
+            });
+
+            var view = new BrowseContractorListView({
+                collection: new Collection()
+            });
+            $('.content').html(view.render().el);
+        },
+        browseContractor: function (id) {
+            var Model = Backbone.Firebase.Model.extend({
+                firebase: 'https://helpdepot.firebaseio.com/contractors/' + id
+            });
+            var view = new BrowseContractorView({
+                model: new Model()
+            });
+            $('.content').html(view.render().el);
+        },
+        login: function () {
+            var view = new LoginView();
+            $('.content').html(view.render().el);
+        },
+        contractor: function (id) {
+            var Model = Backbone.Firebase.Model.extend({
+                firebase: 'https://helpdepot.firebaseio.com/contractors/' + id
+            });
+            var view = new ContractorView({
+                model: new Model()
+            });
+            $('.content').html(view.render().el);
         },
         unknown: function () {
-            console.log('router:unknown', arguments);
+            throw new Error('unknown route');
         }
     });
-    return Router;
 });
